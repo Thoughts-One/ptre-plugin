@@ -1,0 +1,48 @@
+/* Properties Grid Block */
+.ptre-properties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.ptre-property {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.ptre-property img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Featured Properties Block */
+.ptre-featured-properties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.ptre-featured-property {
+    flex: 1 1 300px;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 4px;
+    background: #f9f9f9;
+}
+
+.ptre-featured-property img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Editor Placeholders */
+.ptre-properties-grid-placeholder,
+.ptre-featured-properties-placeholder {
+    padding: 1rem;
+    background: #f0f0f0;
+    border: 1px dashed #ccc;
+    text-align: center;
+}
