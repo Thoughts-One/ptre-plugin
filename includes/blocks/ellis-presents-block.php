@@ -18,10 +18,11 @@ function ptre_plugin_ellis_presents_block_render_callback( $block, $content = ''
     ob_start();
 
     // Check if ACF is properly initialized before proceeding
-    if ( ! function_exists( 'get_field' ) || ! function_exists( 'have_rows' ) || ! function_exists( 'get_sub_field' ) ) {
-        error_log( 'PTRE Ellis Presents Block: ACF functions not available, returning fallback content.' ); // Debugging
+    // Check if ACF is properly initialized before proceeding
+    if ( ! class_exists( 'ACF' ) || ! acf()->is_initialized() ) {
+        error_log( 'PTRE Ellis Presents Block: ACF class not found or not initialized, returning fallback content.' ); // Debugging
         if ( $is_preview ) {
-            echo '<div class="ellis-presents-placeholder"><p>Ellis Presents Block: ACF not initialized</p></div>';
+            echo '<div class="ellis-presents-placeholder"><p>Ellis Presents Block: ACF not fully initialized</p></div>';
         }
         return ob_get_clean();
     }
