@@ -17,6 +17,15 @@
 function ptre_plugin_hero_section_block_render_callback( $block, $content = '', $is_preview = false, $post_id = 0 ) {
     ob_start();
 
+    // Check if ACF is properly initialized before proceeding
+    if ( ! function_exists( 'get_field' ) || ! function_exists( 'have_rows' ) || ! function_exists( 'get_sub_field' ) ) {
+        error_log( 'PTRE Hero Section Block: ACF functions not available, returning fallback content.' ); // Debugging
+        if ( $is_preview ) {
+            echo '<div class="hero-section-placeholder"><p>Hero Section Block: ACF not initialized</p></div>';
+        }
+        return ob_get_clean();
+    }
+
     // Use Post ID 11 for the static homepage content
     $page_id = 11;
 
@@ -72,11 +81,24 @@ function ptre_plugin_hero_section_block_render_callback( $block, $content = '', 
                 error_log( 'PTRE Hero Section Block: About to call get_field(banner_image) with page_id: ' . $page_id ); // Debugging
                 $banner_image = get_field( 'banner_image', $page_id );
                 error_log( 'PTRE Hero Section Block: get_field(banner_image) completed' ); // Debugging
+                error_log( 'PTRE Hero Section Block: Banner image type: ' . gettype( $banner_image ) ); // Debugging
+                error_log( 'PTRE Hero Section Block: Banner image value: ' . print_r( $banner_image, true ) ); // Debugging
+                
                 if ( $banner_image ) :
-                    error_log( 'PTRE Hero Section Block: Banner Image URL: ' . ( $banner_image['url'] ? $banner_image['url'] : 'EMPTY' ) ); // Debugging
-                    ?>
-                    <div class="hero-image" style="background-image: url('<?php echo esc_url( $banner_image['url'] ); ?>');"></div>
-                <?php endif; ?>
+                    // Handle both array (ACF image object) and string (URL) formats
+                    $image_url = '';
+                    if ( is_array( $banner_image ) && isset( $banner_image['url'] ) ) {
+                        $image_url = $banner_image['url'];
+                        error_log( 'PTRE Hero Section Block: Banner Image URL (from array): ' . $image_url ); // Debugging
+                    } elseif ( is_string( $banner_image ) ) {
+                        $image_url = $banner_image;
+                        error_log( 'PTRE Hero Section Block: Banner Image URL (from string): ' . $image_url ); // Debugging
+                    }
+                    
+                    if ( $image_url ) : ?>
+                        <div class="hero-image" style="background-image: url('<?php echo esc_url( $image_url ); ?>');"></div>
+                    <?php endif;
+                endif; ?>
             </section>
             <?php
         endwhile;

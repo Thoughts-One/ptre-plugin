@@ -40,7 +40,22 @@ class Ptre_Blocks {
      */
     public function register_acf_blocks() {
         error_log( 'PTRE_Blocks: register_acf_blocks() called.' ); // Debugging
-        if ( function_exists( 'acf_register_block_type' ) ) {
+        
+        // Ensure ACF is fully loaded and initialized
+        if ( ! function_exists( 'acf_register_block_type' ) ) {
+            error_log( 'PTRE_Blocks: acf_register_block_type function does not exist.' ); // Debugging
+            return;
+        }
+        
+        // Additional check to ensure ACF is fully initialized
+        if ( ! class_exists( 'ACF' ) ) {
+            error_log( 'PTRE_Blocks: ACF class does not exist.' ); // Debugging
+            return;
+        }
+        
+        error_log( 'PTRE_Blocks: ACF is ready, proceeding with block registration.' ); // Debugging
+        
+        if ( true ) {
             // Hero Section Block
             acf_register_block_type( array(
                 'name'            => 'ptre-hero-section',

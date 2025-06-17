@@ -17,6 +17,15 @@
 function ptre_plugin_about_block_render_callback( $block, $content = '', $is_preview = false, $post_id = 0 ) {
     ob_start();
 
+    // Check if ACF is properly initialized before proceeding
+    if ( ! function_exists( 'get_field' ) || ! function_exists( 'have_rows' ) || ! function_exists( 'get_sub_field' ) ) {
+        error_log( 'PTRE About Block: ACF functions not available, returning fallback content.' ); // Debugging
+        if ( $is_preview ) {
+            echo '<div class="about-placeholder"><p>About Block: ACF not initialized</p></div>';
+        }
+        return ob_get_clean();
+    }
+
     // Use Post ID 11 for the static homepage content
     $page_id = 11;
 
