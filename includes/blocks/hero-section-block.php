@@ -17,6 +17,15 @@
 function ptre_plugin_hero_section_block_render_callback( $block, $content = '', $is_preview = false, $post_id = 0 ) {
     ob_start();
 
+    // Ensure ACF is fully initialized before proceeding with ACF functions
+    if ( ! function_exists( 'acf_is_ready' ) || ! acf_is_ready() ) {
+        error_log( 'PTRE Hero Section Block: ACF not ready. Aborting render.' );
+        // Optionally, return a placeholder or an empty string if ACF is not ready
+        // For now, just returning an empty string to prevent errors.
+        // You might want to return some fallback HTML or a message.
+        return '';
+    }
+
     // CRITICAL DEBUG: Add visible test output to verify block rendering
     echo '<div style="background: red; color: white; padding: 10px; margin: 10px; border: 2px solid black;">
         <h3>HERO SECTION BLOCK IS RENDERING!</h3>
