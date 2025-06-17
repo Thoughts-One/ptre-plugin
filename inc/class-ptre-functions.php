@@ -46,6 +46,7 @@ class Ptre_Functions {
      * @since    1.0.0  
      */  
     public function __construct() {  
+        error_log( 'PTRE_Functions: __construct() called.' ); // Debugging  
         $this->plugin_name = 'ptre-plugin';  
         $this->version = PTRE_PLUGIN_VERSION;  
   
@@ -104,9 +105,11 @@ class Ptre_Functions {
      */  
     private function define_public_hooks() {  
         $plugin_public = new Ptre_Public( $this->get_plugin_name(), $this->get_version() );  
+        $plugin_blocks = new Ptre_Blocks( $this->get_plugin_name(), $this->get_version() ); // Instantiate Ptre_Blocks  
   
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );  
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );  
+        $this->loader->add_action( 'acf/init', $plugin_blocks, 'register_acf_blocks' ); // Add ACF blocks registration to loader  
   
         // Load MW Properties shortcode overrides from the plugin  
         $this->loader->add_action('plugins_loaded', $this, 'load_mw_properties_shortcodes');  
