@@ -26,55 +26,55 @@ function ptre_plugin_ask_peter_block_render_callback( $block, $content = '', $is
 
     // Since blocks are now registered on acf/init hook, ACF should be ready
     // Simple check for safety, but should not be needed
-    if ( ! function_exists( 'get_field' ) ) {
-        error_log( 'PTRE Ask Peter Block: ACF functions not available despite acf/init hook' );
-        echo '<div style="background: orange; color: black; padding: 10px; margin: 10px;">
-            <h3>ACF FUNCTIONS NOT AVAILABLE</h3>
-            <p>This should not happen when using acf/init hook</p>
+    if ( ! function_exists( 'acf_is_ready' ) || ! acf_is_ready() ) {
+        error_log( 'PTRE Ask Peter Block: ACF not ready. Aborting ACF data retrieval.' );
+        echo '<div style="background: yellow; color: black; padding: 10px; margin: 10px;">
+            <h3>ACF NOT READY</h3>
+            <p>ACF functions are being called before ACF is fully initialized. No ACF data will be displayed.</p>
         </div>';
-        return ob_get_clean();
-    }
+        // Do not return here, allow the rest of the block's HTML to render if it doesn't rely on ACF data
+    } else {
+        // Use Post ID 11 for the static homepage content
+        $page_id = 11;
 
-    // Use Post ID 11 for the static homepage content
-    $page_id = 11;
+        error_log( 'PTRE Ask Peter Block: Render callback executed. Page ID: ' . $page_id ); // Debugging
 
-    error_log( 'PTRE Ask Peter Block: Render callback executed. Page ID: ' . $page_id ); // Debugging
+        if ( have_rows( 'ask_peter', $page_id ) ) :
+            error_log( 'PTRE Ask Peter Block: have_rows returned TRUE.' ); // Debugging
+            while ( have_rows( 'ask_peter', $page_id ) ) : the_row();
+                $title = get_sub_field( 'title' );
+                $content_text = get_sub_field( 'content' );
+                $button_text = get_sub_field( 'button_text' );
+                $button_url = get_sub_field( 'button_url' );
 
-    if ( have_rows( 'ask_peter', $page_id ) ) :
-        error_log( 'PTRE Ask Peter Block: have_rows returned TRUE.' ); // Debugging
-        while ( have_rows( 'ask_peter', $page_id ) ) : the_row();
-            $title = get_sub_field( 'title' );
-            $content_text = get_sub_field( 'content' );
-            $button_text = get_sub_field( 'button_text' );
-            $button_url = get_sub_field( 'button_url' );
-
-            error_log( 'PTRE Ask Peter Block: Title: ' . ( $title ? $title : 'EMPTY' ) ); // Debugging
-            ?>
-            <section class="ask-peter" data-aos="fade-up" data-aos-delay="200">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8 col-md-10 col-12 text-center">
-                            <?php if ( $title ) : ?>
-                                <h2><?php echo esc_html( $title ); ?></h2>
-                            <?php endif; ?>
-                            <?php if ( $content_text ) : ?>
-                                <?php echo wp_kses_post( $content_text ); ?>
-                            <?php endif; ?>
-                            <?php if ( $button_text && $button_url ) : ?>
-                                <a href="<?php echo esc_url( $button_url ); ?>" class="btn-default"><?php echo esc_html( $button_text ); ?></a>
-                            <?php endif; ?>
+                error_log( 'PTRE Ask Peter Block: Title: ' . ( $title ? $title : 'EMPTY' ) ); // Debugging
+                ?>
+                <section class="ask-peter" data-aos="fade-up" data-aos-delay="200">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 col-md-10 col-12 text-center">
+                                <?php if ( $title ) : ?>
+                                    <h2><?php echo esc_html( $title ); ?></h2>
+                                <?php endif; ?>
+                                <?php if ( $content_text ) : ?>
+                                    <?php echo wp_kses_post( $content_text ); ?>
+                                <?php endif; ?>
+                                <?php if ( $button_text && $button_url ) : ?>
+                                    <a href="<?php echo esc_url( $button_url ); ?>" class="btn-default"><?php echo esc_html( $button_text ); ?></a>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <?php
-        endwhile;
-    else :
-        error_log( 'PTRE Ask Peter Block: have_rows returned FALSE. No ask peter content found for Post ID ' . $page_id ); // Debugging
-        if ( $is_preview ) {
-            echo '<p>Ask Peter Block: No content found for Post ID ' . esc_html( $page_id ) . '.</p>';
-        }
-    endif;
+                </section>
+                <?php
+            endwhile;
+        else :
+            error_log( 'PTRE Ask Peter Block: have_rows returned FALSE. No ask peter content found for Post ID ' . $page_id ); // Debugging
+            if ( $is_preview ) {
+                echo '<p>Ask Peter Block: No content found for Post ID ' . esc_html( $page_id ) . '.</p>';
+            }
+        endif;
+    }
 
     return ob_get_clean();
 }
