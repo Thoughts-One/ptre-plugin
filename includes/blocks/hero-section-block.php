@@ -17,6 +17,12 @@
 function ptre_plugin_hero_section_block_render_callback( $block, $content = '', $is_preview = false, $post_id = 0 ) {
     ob_start();
 
+    // CRITICAL DEBUG: Add visible test output to verify block rendering
+    echo '<div style="background: red; color: white; padding: 10px; margin: 10px; border: 2px solid black;">
+        <h3>HERO SECTION BLOCK IS RENDERING!</h3>
+        <p>If you see this, the block render callback is working.</p>
+    </div>';
+
     // Check if ACF is properly initialized before proceeding
     if ( ! function_exists( 'get_field' ) ) {
         error_log( 'PTRE Hero Section Block: ACF class not found or not initialized, returning fallback content.' ); // Debugging
