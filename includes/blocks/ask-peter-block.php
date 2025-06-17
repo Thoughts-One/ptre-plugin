@@ -18,8 +18,7 @@ function ptre_plugin_ask_peter_block_render_callback( $block, $content = '', $is
     ob_start();
 
     // Check if ACF is properly initialized before proceeding
-    // Check if ACF is properly initialized before proceeding
-    if ( ! class_exists( 'ACF' ) || ! acf()->is_initialized() ) {
+    if ( ! function_exists( 'get_field' ) ) {
         error_log( 'PTRE Ask Peter Block: ACF class not found or not initialized, returning fallback content.' ); // Debugging
         if ( $is_preview ) {
             echo '<div class="ask-peter-placeholder"><p>Ask Peter Block: ACF not fully initialized</p></div>';

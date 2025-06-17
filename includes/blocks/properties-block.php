@@ -18,8 +18,7 @@ function ptre_plugin_properties_block_render_callback( $block, $content = '', $i
     ob_start();
 
     // Check if ACF is properly initialized before proceeding
-    // Check if ACF is properly initialized before proceeding
-    if ( ! class_exists( 'ACF' ) || ! acf()->is_initialized() ) {
+    if ( ! function_exists( 'get_field' ) ) {
         error_log( 'PTRE Properties Block: ACF class not found or not initialized, returning fallback content.' ); // Debugging
         if ( $is_preview ) {
             echo '<div class="properties-placeholder"><p>Properties Block: ACF not fully initialized</p></div>';
