@@ -20,13 +20,19 @@ function ptre_plugin_hero_section_block_render_callback( $block, $content = '', 
     // Use Post ID 11 for the static homepage content
     $page_id = 11;
 
+    error_log( 'PTRE Hero Section Block: Render callback executed. Page ID: ' . $page_id ); // Debugging
+
     if ( have_rows( 'hero-section', $page_id ) ) :
+        error_log( 'PTRE Hero Section Block: have_rows returned TRUE.' ); // Debugging
         while ( have_rows( 'hero-section', $page_id ) ) : the_row();
             $headline    = get_sub_field( 'headline' );
             $subhead     = get_sub_field( 'subhead' );
             $content_text = get_sub_field( 'content' );
             $button_text = get_sub_field( 'button_text' );
             $button_url  = get_sub_field( 'button_url' );
+
+            error_log( 'PTRE Hero Section Block: Headline: ' . ( $headline ? $headline : 'EMPTY' ) ); // Debugging
+            error_log( 'PTRE Hero Section Block: Subhead: ' . ( $subhead ? $subhead : 'EMPTY' ) ); // Debugging
             ?>
             <section class="hero-section">
                 <div class="container">
@@ -48,6 +54,7 @@ function ptre_plugin_hero_section_block_render_callback( $block, $content = '', 
                 <?php
                 $banner_image = get_field( 'banner_image', $page_id );
                 if ( $banner_image ) :
+                    error_log( 'PTRE Hero Section Block: Banner Image URL: ' . ( $banner_image['url'] ? $banner_image['url'] : 'EMPTY' ) ); // Debugging
                     ?>
                     <div class="hero-image" style="background-image: url('<?php echo esc_url( $banner_image['url'] ); ?>');"></div>
                 <?php endif; ?>
@@ -55,6 +62,7 @@ function ptre_plugin_hero_section_block_render_callback( $block, $content = '', 
             <?php
         endwhile;
     else :
+        error_log( 'PTRE Hero Section Block: have_rows returned FALSE. No hero section content found for Post ID ' . $page_id ); // Debugging
         // Fallback for preview or if no rows are found
         if ( $is_preview ) {
             echo '<p>Hero Section Block: No content found for Post ID ' . esc_html( $page_id ) . '.</p>';
