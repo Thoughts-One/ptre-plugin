@@ -17,12 +17,21 @@
 function ptre_plugin_buyer_experience_block_render_callback( $block, $content = '', $is_preview = false, $post_id = 0 ) {
     ob_start();
 
-    // Check if ACF is properly initialized before proceeding
+    // CRITICAL DEBUG: Add visible test output to verify block rendering
+    echo '<div style="background: red; color: white; padding: 10px; margin: 10px; border: 2px solid black;">
+        <h3>BUYER EXPERIENCE BLOCK IS RENDERING!</h3>
+        <p>If you see this, the block render callback is working.</p>
+        <p>Block registered on acf/init hook - ACF should be ready!</p>
+    </div>';
+
+    // Since blocks are now registered on acf/init hook, ACF should be ready
+    // Simple check for safety, but should not be needed
     if ( ! function_exists( 'get_field' ) ) {
-        error_log( 'PTRE Buyer Experience Block: ACF class not found or not initialized, returning fallback content.' ); // Debugging
-        if ( $is_preview ) {
-            echo '<div class="buyer-experience-placeholder"><p>Buyer Experience Block: ACF not fully initialized</p></div>';
-        }
+        error_log( 'PTRE Buyer Experience Block: ACF functions not available despite acf/init hook' );
+        echo '<div style="background: orange; color: black; padding: 10px; margin: 10px;">
+            <h3>ACF FUNCTIONS NOT AVAILABLE</h3>
+            <p>This should not happen when using acf/init hook</p>
+        </div>';
         return ob_get_clean();
     }
 
