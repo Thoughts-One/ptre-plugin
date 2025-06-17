@@ -1,10 +1,16 @@
 <?php
-/**
- * Plugin Name: PTRE Core Functionality
- * Description: Handles custom functionality for Peter Thompson Real Estate
- * Version: 1.0.0
- * Author: Peter Thompson Real Estate
- */
+/*
+Plugin Name:  PTRE Plugin
+Plugin URI:   https://peterthompson.ca
+Description:  Custom plugin for peterthompson.ca
+Version:      1.0
+Author:       Peter Thompson Real Estate
+Author URI:   https://peterthompson.ca
+License:      GPL2
+License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:  ptre-plugin
+Domain Path:  /languages
+*/
 
 defined('ABSPATH') || exit;
 
@@ -17,6 +23,8 @@ require_once PTRE_PLUGIN_DIR . 'includes/class-ptre-api-handler.php';
 require_once PTRE_PLUGIN_DIR . 'includes/class-ptre-shortcodes.php';
 require_once PTRE_PLUGIN_DIR . 'includes/class-ptre-blocks.php';
 require_once PTRE_PLUGIN_DIR . 'inc/class-ptre-functions.php';
+require_once PTRE_PLUGIN_DIR . 'includes/class-ptre-custom-post-types.php';
+require_once PTRE_PLUGIN_DIR . 'mw-properties-templates/shortcodes/nearby-cities.php';
 
 // Initialize plugin components
 add_action('plugins_loaded', function() {
@@ -24,4 +32,5 @@ add_action('plugins_loaded', function() {
     new PTRE_Shortcodes();
     new PTRE_Blocks();
     new PTRE_Functions();
+    new PTRE_Custom_Post_Types();
 });

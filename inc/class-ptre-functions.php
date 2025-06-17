@@ -38,7 +38,7 @@ class PTRE_Functions {
         add_filter('comments_array', '__return_empty_array', 10, 2);
         
         // ACF
-        add_action('init', [$this, 'add_acf_options_page']);
+        add_action('acf/init', [$this, 'add_acf_options_page']);
         
         // Author Fields
         add_action('show_user_profile', [$this, 'add_author_phone_field']);
