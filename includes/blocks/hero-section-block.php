@@ -21,16 +21,21 @@ function ptre_plugin_hero_section_block_render_callback( $block, $content = '', 
     echo '<div style="background: red; color: white; padding: 10px; margin: 10px; border: 2px solid black;">
         <h3>HERO SECTION BLOCK IS RENDERING!</h3>
         <p>If you see this, the block render callback is working.</p>
+        <p>Block registered on acf/init hook - ACF should be ready!</p>
     </div>';
 
-    // Check if ACF is properly initialized before proceeding
-    if ( ! function_exists( 'get_field' ) || ! did_action( 'acf/init' ) ) {
-        error_log( 'PTRE Hero Section Block: ACF not fully initialized, returning fallback content.' ); // Debugging
-        if ( $is_preview ) {
-            echo '<div class="hero-section-placeholder"><p>Hero Section Block: ACF not fully initialized</p></div>';
-        }
+    // Since blocks are now registered on acf/init hook, ACF should be ready
+    // Simple check for safety, but should not be needed
+    if ( ! function_exists( 'get_field' ) ) {
+        error_log( 'PTRE Hero Section Block: ACF functions not available despite acf/init hook' );
+        echo '<div style="background: orange; color: black; padding: 10px; margin: 10px;">
+            <h3>ACF FUNCTIONS NOT AVAILABLE</h3>
+            <p>This should not happen when using acf/init hook</p>
+        </div>';
         return ob_get_clean();
     }
+
+    error_log( 'PTRE Hero Section Block: ACF functions available - proceeding with execution' );
 
     // Use Post ID 11 for the static homepage content
     $page_id = 11;
