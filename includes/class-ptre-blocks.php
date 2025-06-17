@@ -41,14 +41,105 @@ class Ptre_Blocks {
     public function register_acf_blocks() {
         error_log( 'PTRE_Blocks: register_acf_blocks() called.' ); // Debugging
         if ( function_exists( 'acf_register_block_type' ) ) {
+            // Hero Section Block
             acf_register_block_type( array(
                 'name'            => 'ptre-hero-section',
                 'title'           => __( 'PTRE Hero Section', 'ptre-plugin' ),
                 'description'     => __( 'A custom block for the hero section of the homepage.', 'ptre-plugin' ),
                 'render_callback' => 'ptre_plugin_hero_section_block_render_callback',
-                'category'        => 'common', // or 'layout', 'formatting', 'widgets', 'embed'
-                'icon'            => 'align-wide', // Dashicon
+                'category'        => 'common',
+                'icon'            => 'align-wide',
                 'keywords'        => array( 'hero', 'section', 'homepage' ),
+                'supports'        => array(
+                    'align' => false,
+                    'mode'  => false,
+                ),
+            ) );
+
+            // Seller Experience Block
+            acf_register_block_type( array(
+                'name'            => 'ptre-seller-experience',
+                'title'           => __( 'PTRE Seller Experience', 'ptre-plugin' ),
+                'description'     => __( 'A custom block for the seller experience section.', 'ptre-plugin' ),
+                'render_callback' => 'ptre_plugin_seller_experience_block_render_callback',
+                'category'        => 'common',
+                'icon'            => 'businessman',
+                'keywords'        => array( 'seller', 'experience', 'marketing' ),
+                'supports'        => array(
+                    'align' => false,
+                    'mode'  => false,
+                ),
+            ) );
+
+            // Buyer Experience Block
+            acf_register_block_type( array(
+                'name'            => 'ptre-buyer-experience',
+                'title'           => __( 'PTRE Buyer Experience', 'ptre-plugin' ),
+                'description'     => __( 'A custom block for the buyer experience section.', 'ptre-plugin' ),
+                'render_callback' => 'ptre_plugin_buyer_experience_block_render_callback',
+                'category'        => 'common',
+                'icon'            => 'groups',
+                'keywords'        => array( 'buyer', 'experience', 'marketing' ),
+                'supports'        => array(
+                    'align' => false,
+                    'mode'  => false,
+                ),
+            ) );
+
+            // Ask Peter Block
+            acf_register_block_type( array(
+                'name'            => 'ptre-ask-peter',
+                'title'           => __( 'PTRE Ask Peter', 'ptre-plugin' ),
+                'description'     => __( 'A custom block for the ask peter section.', 'ptre-plugin' ),
+                'render_callback' => 'ptre_plugin_ask_peter_block_render_callback',
+                'category'        => 'common',
+                'icon'            => 'format-chat',
+                'keywords'        => array( 'ask', 'peter', 'contact' ),
+                'supports'        => array(
+                    'align' => false,
+                    'mode'  => false,
+                ),
+            ) );
+
+            // About Block
+            acf_register_block_type( array(
+                'name'            => 'ptre-about',
+                'title'           => __( 'PTRE About', 'ptre-plugin' ),
+                'description'     => __( 'A custom block for the about section.', 'ptre-plugin' ),
+                'render_callback' => 'ptre_plugin_about_block_render_callback',
+                'category'        => 'common',
+                'icon'            => 'admin-users',
+                'keywords'        => array( 'about', 'profile', 'bio' ),
+                'supports'        => array(
+                    'align' => false,
+                    'mode'  => false,
+                ),
+            ) );
+
+            // Properties Block
+            acf_register_block_type( array(
+                'name'            => 'ptre-properties',
+                'title'           => __( 'PTRE Properties', 'ptre-plugin' ),
+                'description'     => __( 'A custom block for displaying properties.', 'ptre-plugin' ),
+                'render_callback' => 'ptre_plugin_properties_block_render_callback',
+                'category'        => 'common',
+                'icon'            => 'admin-home',
+                'keywords'        => array( 'properties', 'listings', 'real estate' ),
+                'supports'        => array(
+                    'align' => false,
+                    'mode'  => false,
+                ),
+            ) );
+
+            // Ellis Presents Block
+            acf_register_block_type( array(
+                'name'            => 'ptre-ellis-presents',
+                'title'           => __( 'PTRE Ellis Presents', 'ptre-plugin' ),
+                'description'     => __( 'A custom block for displaying Ellis Presents content.', 'ptre-plugin' ),
+                'render_callback' => 'ptre_plugin_ellis_presents_block_render_callback',
+                'category'        => 'common',
+                'icon'            => 'format-video',
+                'keywords'        => array( 'ellis', 'presents', 'videos' ),
                 'supports'        => array(
                     'align' => false,
                     'mode'  => false,

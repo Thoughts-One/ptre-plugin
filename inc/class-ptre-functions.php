@@ -77,7 +77,13 @@ class Ptre_Functions {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ptre-custom-post-types.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ptre-api-handler.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ptre-blocks.php';
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/blocks/hero-section-block.php'; // Also ensure this path is correct
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/blocks/hero-section-block.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/blocks/seller-experience-block.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/blocks/buyer-experience-block.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/blocks/ask-peter-block.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/blocks/about-block.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/blocks/properties-block.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/blocks/ellis-presents-block.php';
 
         $this->loader = new Ptre_Loader();
     }
