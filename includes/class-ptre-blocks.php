@@ -53,6 +53,13 @@ class Ptre_Blocks {
             return;
         }
         
+        // Wait for ACF to be fully ready
+        if ( ! did_action( 'acf/init' ) ) {
+            error_log( 'PTRE_Blocks: ACF not yet initialized, deferring block registration.' ); // Debugging
+            add_action( 'acf/init', array( $this, 'register_acf_blocks' ), 99 );
+            return;
+        }
+        
         error_log( 'PTRE_Blocks: ACF is ready, proceeding with block registration.' ); // Debugging
         
         if ( true ) {

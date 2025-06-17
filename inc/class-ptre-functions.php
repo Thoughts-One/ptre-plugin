@@ -115,7 +115,7 @@ class Ptre_Functions {
 
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-        $this->loader->add_action( 'acf/init', $plugin_blocks, 'register_acf_blocks', 99 ); // Add ACF blocks registration to loader with high priority
+        $this->loader->add_action( 'init', $plugin_blocks, 'register_acf_blocks', 25 ); // Register blocks after ACF is fully loaded
 
         // Load MW Properties shortcode overrides from the plugin
         $this->loader->add_action('plugins_loaded', $this, 'load_mw_properties_shortcodes');
