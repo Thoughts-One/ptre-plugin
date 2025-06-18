@@ -32,43 +32,14 @@ function ptre_plugin_static_hero_section_block_render_callback( $block, $content
 }
 
 /**
- * Registers the static hero section block.
+ * Registers the static hero section block from its block.json.
  */
-function ptre_plugin_register_static_hero_section_block() {
-    if ( ! function_exists( 'register_block_type' ) ) {
+function ptre_plugin_register_static_hero_section_block_from_metadata() {
+    if ( ! function_exists( 'register_block_type_from_metadata' ) ) {
         return;
     }
 
-    register_block_type( 'ptre-plugin/static-hero-section', array(
-        'editor_script'   => 'ptre-plugin-static-hero-section-block-editor', // Optional: for JS in editor
-        'editor_style'    => 'ptre-plugin-static-hero-section-block-editor-style', // Optional: for CSS in editor
-        'style'           => 'ptre-plugin-static-hero-section-block-style', // Optional: for frontend CSS
-        'render_callback' => 'ptre_plugin_static_hero_section_block_render_callback',
-        'attributes'      => array(
-            // Define attributes here if you want to make parts of the block editable without ACF.
-            // For now, it's static content.
-        ),
-        'category'        => 'ptre-blocks', // Custom category for PTRE blocks
-        'icon'            => 'star-filled', // Dashicon icon for the block
-        'keywords'        => array( 'hero', 'static', 'banner' ),
-        'supports'        => array(
-            'align' => true,
-            'html'  => false,
-        ),
-    ) );
+    register_block_type_from_metadata( __DIR__ );
 }
 
-add_action( 'init', 'ptre_plugin_register_static_hero_section_block' );
-
-// Enqueue block assets (optional, if you have editor/frontend scripts/styles)
-function ptre_plugin_static_hero_section_block_assets() {
-    if ( ! is_admin() ) {
-        wp_enqueue_style(
-            'ptre-plugin-static-hero-section-block-style',
-            plugin_dir_url( __FILE__ ) . 'static-hero-section-block.css',
-            array(),
-            filemtime( plugin_dir_path( __FILE__ ) . 'static-hero-section-block.css' )
-        );
-    }
-}
-add_action( 'enqueue_block_assets', 'ptre_plugin_static_hero_section_block_assets' );
+add_action( 'init', 'ptre_plugin_register_static_hero_section_block_from_metadata' );

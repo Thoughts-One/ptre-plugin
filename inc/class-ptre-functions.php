@@ -84,6 +84,7 @@ class Ptre_Functions {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/blocks/about-block.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/blocks/properties-block.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/blocks/ellis-presents-block.php';
+        // The static-hero-section-block.php is now loaded via block.json, no direct require needed.
 
         $this->loader = new Ptre_Loader();
     }

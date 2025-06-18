@@ -27,11 +27,8 @@ class Ptre_Blocks {
     public function register_blocks() {
         error_log( 'PTRE_Blocks: register_blocks() called.' ); // Debugging
 
-        // Include the static hero section block file
-        include_once plugin_dir_path( __FILE__ ) . 'blocks/static-hero-section-block.php';
-        
-        // Register the static hero section block
-        ptre_plugin_register_static_hero_section_block();
+        // Register the static hero section block using block.json
+        register_block_type( plugin_dir_path( __FILE__ ) . 'blocks/static-hero-section-block' );
 
         // Example of standard block registration (if needed)
         // register_block_type( plugin_dir_path( dirname( __FILE__ ) ) . 'build/properties-grid' );

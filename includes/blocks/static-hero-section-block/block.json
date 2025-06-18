@@ -1,0 +1,14 @@
+{
+    "apiVersion": 3,
+    "name": "ptre-plugin/static-hero-section",
+    "title": "PTRE Static Hero Section",
+    "description": "A static hero section block for the PTRE theme.",
+    "category": "ptre-blocks",
+    "icon": "star-filled",
+    "keywords": ["hero", "static", "banner"],
+    "textdomain": "ptre-plugin",
+    "editorScript": "file:./static-hero-section-block.js",
+    "editorStyle": "file:./static-hero-section-block-editor.css",
+    "style": "file:./static-hero-section-block.css",
+    "render": "file:./static-hero-section-block.php"
+}
